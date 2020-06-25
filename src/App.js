@@ -53,8 +53,8 @@ function App() {
     setAverageDeathsPerMinute(averageDeathsPerMinute);
 
     const secondsBetweenDeaths = (60 / averageDeathsPerMinute).toFixed(0);
-    setAverageIntervalBetweenDeaths(5);
-    startCountdown(5);
+    setAverageIntervalBetweenDeaths(secondsBetweenDeaths);
+    startCountdown(secondsBetweenDeaths);
 
     const totalSecondsToday = moment().diff(moment(moment().startOf('day')), 'seconds');
     const today = Number.parseInt((totalSecondsToday / secondsBetweenDeaths).toFixed(0));
