@@ -9,6 +9,8 @@ import person from './assets/images/person.png';
 import personRed from './assets/images/person_red.png';
 import git from './assets/images/git.png';
 
+const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [coronaData, setCoronaData] = useState([]);
@@ -20,6 +22,9 @@ function App() {
   const [totalDeaths, setTotalDeaths] = useState(0);
 
   const intervalRef = useRef();
+
+  const moreInfoRef = useRef();
+  const scrollToMoreInfo = () => scrollToRef(moreInfoRef)
 
   useEffect(() => {
     fetchData();
@@ -82,14 +87,17 @@ function App() {
 
   return (
     <div className="App">
+      <a className="moreInfo" href="#mais-informacoes" onClick={() => {
+        scrollToMoreInfo();
+      }}>Mais informações</a>
       <a className="dataSource" href="https://covid19api.com/">Dados (https://covid19api.com)</a>
-      <div className="header">
+      <div className="header" style={{marginTop: 50}}>
         <h1>Só uma gripezinha ...</h1>
         {!isLoading && <>
           <h2 style={{ marginTop: -15 }}>1 morte a cada <span style={{ color: 'red' }}>{averageIntervalBetweenDeaths}</span> segundos</h2>
           <span className="countdown">{timeoutSeconds}</span>
         </>}
-        
+
         {isLoading && <div className="loader"></div>}
 
       </div>
@@ -123,15 +131,33 @@ function App() {
           ))}
         </div>
 
-        <div className="header">
-          <h3>Total de mortes</h3>
-          <h1><span style={{ color: 'red' }}>{totalDeaths}</span></h1>
+        <div className="header" ref={moreInfoRef}>
+          <h3 className="notJustAFlu">Total de mortes no Brasil</h3>
+          <h1><span className="notJustAFlu" style={{ color: 'red' }}>{totalDeaths}</span></h1>
         </div>
 
-        <div className="header" style={{ marginTop: 30 }}>
+        <div className="header" style={{ marginTop: 30 }} >
+          <div style={{ marginBottom: 30 }}>
+            <h1 className="notJustAFlu">Não é só uma gripezinha.</h1>
+
+            <div class="video-container">
+              <iframe src="https://www.youtube.com/embed/KOXNBA9b86I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <br />
+            <br />
+            <a href="https://coronavirus.saude.gov.br/" target="_blank">https://coronavirus.saude.gov.br/</a>
+            <br />
+            <br />
+            <a href="http://gripezinha.com.br/" target="_blank">http://gripezinha.com.br/</a>
+            <br />
+            <br />
+            <a href="http://gripezinha.com/" target="_blank">http://gripezinha.com/</a>
+          </div>
+
           <a href="https://github.com/ricardovcorrea/gripezinha">
             <img src={git} className="git" />
           </a>
+
         </div>
 
       </>}
