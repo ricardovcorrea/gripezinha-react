@@ -121,7 +121,7 @@ function App() {
         <div className="header">
           <h3>Total de mortes nos últimos 7 dias</h3>
           <h1><span style={{ color: 'red' }}>{coronaData.map(d => d.total).reduce((prev, act) => prev + act, 0)}</span></h1>
-          <h3>Média de mortes por minuto nos últimos 7 dias</h3>
+          <h3>Média de mortes <span style={{ color: 'red' }}>POR MINUTO</span> nos últimos 7 dias</h3>
           <h1><span style={{ color: 'red' }}>{averageDeathsPerMinute}</span></h1>
         </div>
 
