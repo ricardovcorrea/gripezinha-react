@@ -34,15 +34,15 @@ function App() {
     const data = await fetchCoronaLiveData();
     setIsLoading(false);
 
-    const last8daysWithData = data.reverse().slice(1, 9);
+    const last8daysWithData = data.filter(d => d.total > 0).reverse().slice(0, 7);
     setTotalDeaths(last8daysWithData[0].total);
 
     const totalsOfLast7days = [];
 
-    for (let i = 0; i <= 8; i++) {
+    for (let i = 0; i < 7; i++) {
       const totalOfDay = last8daysWithData[i];
 
-      if (i + 1 < 8) {
+      if (i + 1 < 7) {
         const totalOfDayBefore = last8daysWithData[i + 1];
 
         totalsOfLast7days.push({
@@ -91,7 +91,7 @@ function App() {
         scrollToMoreInfo();
       }}>Mais informações</a>
       <a className="dataSource" href="https://covid19api.com/">Dados (https://covid19api.com)</a>
-      <div className="header" style={{marginTop: 50}}>
+      <div className="header" style={{ marginTop: 50 }}>
         <h1>Só uma gripezinha ...</h1>
         {!isLoading && <>
           <h2 style={{ marginTop: -15 }}>1 morte a cada <span style={{ color: 'red' }}>{averageIntervalBetweenDeaths}</span> segundos</h2>
@@ -140,8 +140,8 @@ function App() {
           <div style={{ marginBottom: 30 }}>
             <h1 className="notJustAFlu">Não é só uma gripezinha.</h1>
 
-            <div class="video-container">
-              <iframe src="https://www.youtube.com/embed/KOXNBA9b86I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div className="video-container">
+              <iframe src="https://www.youtube.com/embed/KOXNBA9b86I" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
             </div>
             <br />
             <br />
